@@ -3,25 +3,25 @@ package org.esaip.ira2026.arthursd.springdatajpa.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "SPECIES")
+@Table(name = "species")
 public class Species {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(columnDefinition = "varchar(64)", nullable = false)
-    private String common_name;
-    @Column(columnDefinition = "varchar(64)", nullable = false)
-    private String latin_name;
+    @Column(name = "common_name", nullable = false, length = 64)
+    private String commonName;
+    @Column(name = "latin_name", nullable = false, length = 64)
+    private String latinName;
 
     public Species() {
 
     }
 
-    public Species(Integer id, String common_name, String latin_name) {
+    public Species(Integer id, String commonName, String latinName) {
         this.id = id;
-        this.common_name = common_name;
-        this.latin_name = latin_name;
+        this.commonName = commonName;
+        this.latinName = latinName;
     }
 
     public Integer getId() {
@@ -32,23 +32,23 @@ public class Species {
         this.id = id;
     }
 
-    public String getCommon_name() {
-        return common_name;
+    public String getCommonName() {
+        return commonName;
     }
 
-    public void setCommon_name(String common_name) {
-        this.common_name = common_name;
+    public void setCommonName(String common_name) {
+        this.commonName = common_name;
     }
 
-    public String getLatin_name() {
-        return latin_name;
+    public String getLatinName() {
+        return latinName;
     }
 
-    public void setLatin_name(String latin_name) {
-        this.latin_name = latin_name;
+    public void setLatinName(String latin_name) {
+        this.latinName = latin_name;
     }
 
     public String toString() {
-        return "Specie ID: " + this.id + "\n    Common name:" + this.common_name + "\n    Latin name:" + this.latin_name;
+        return "Specie ID: " + this.id + "\n    Common name:" + this.commonName + "\n    Latin name:" + this.latinName;
     }
 }
