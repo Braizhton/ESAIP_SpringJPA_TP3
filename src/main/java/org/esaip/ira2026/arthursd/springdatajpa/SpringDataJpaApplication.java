@@ -39,11 +39,11 @@ public class SpringDataJpaApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception
-    {
+    public void run(String... args) throws Exception {
         // =============================================
         // 1. Afficher toutes les entités avec findAll
         // =============================================
+
         System.out.println("===== Toutes les espèces =====");
         List<Species> allSpecies = speciesRepository.findAll();
         allSpecies.forEach(System.out::println);
@@ -63,6 +63,7 @@ public class SpringDataJpaApplication implements CommandLineRunner {
         // =============================================
         // 2. Créer de nouvelles entités avec save
         // =============================================
+
         System.out.println("\n===== Création d'une nouvelle espèce =====");
         Species poney = new Species();
         poney.setCommonName("Poney");
@@ -88,6 +89,7 @@ public class SpringDataJpaApplication implements CommandLineRunner {
         // =============================================
         // 3. Rechercher par id avec findById
         // =============================================
+
         System.out.println("\n===== Recherche d'un animal par ID =====");
         Optional<Animal> animalOpt = animalRepository.findById(pinpin.getId());
         if (animalOpt.isPresent()) {
@@ -99,6 +101,7 @@ public class SpringDataJpaApplication implements CommandLineRunner {
         // =============================================
         // 4. Supprimer des entités avec delete
         // =============================================
+
         System.out.println("\n===== Suppression de l'animal créé =====");
         animalRepository.delete(pinpin);
         System.out.println("Animal supprimé !");
@@ -116,5 +119,69 @@ public class SpringDataJpaApplication implements CommandLineRunner {
         speciesRepository.delete(vache);
         System.out.println("Autres espèces supprimées !");
         System.out.println("Nombre d'espèces après suppression : " + speciesRepository.count());
+
+// ---------------------------------------------------------
+// TESTS DERIVED QUERY METHODS
+// ---------------------------------------------------------
+
+        System.out.println("\n\n=============================================");
+        System.out.println("===== TESTS DES DERIVED QUERY METHODS =======");
+        System.out.println("=============================================\n");
+
+// ---------------------------------------------------------
+// TESTS SUR SPECIES
+// ---------------------------------------------------------
+
+        System.out.println("1. Espèce avec le nom commun 'Chat' :");
+        speciesRepository.findByCommonName("Chat")
+                .ifPresent(System.out::println);
+
+        System.out.println("\n2. Espèces dont le nom commence par 'Ch' (Chat, Chien) :");
+        speciesRepository.findByCommonNameStartingWith("Ch")
+                .forEach(System.out::println);
+
+// ---------------------------------------------------------
+// TESTS SUR ANIMAL
+// ---------------------------------------------------------
+
+        System.out.println("\n3. Animaux blancs ET mâles (Médor) :");
+        animalRepository.findByColorAndSex("Blanc", "M")
+                .forEach(System.out::println);
+
+        System.out.println("\n4. Tous les chats (Max, Loulou, Minouchette) :");
+        animalRepository.findBySpeciesCommonName("Chat")
+                .forEach(System.out::println);
+
+        System.out.println("\n5. Nombre total d'animaux de couleur blanche :");
+        long whiteAnimalsCount = animalRepository.countByColor("Blanc");
+        System.out.println("Il y a " + whiteAnimalsCount + " animal/animaux blanc(s).");
+
+        System.out.println("\n6. Animaux dont le nom contient 'ou' (Loulou, Lou, Minouchette) :");
+        animalRepository.findByNameContainingIgnoreCase("ou")
+                .forEach(System.out::println);
+
+// ---------------------------------------------------------
+// TESTS SUR PERSON
+// ---------------------------------------------------------
+
+        System.out.println("\n7. Personne avec le login 'hla' (Henri Lamarque) :");
+        personRepository.findByLogin("hla")
+                .ifPresent(System.out::println);
+
+        System.out.println("\n8. Personnes de 50 ans ou plus (Jean, Paul) :");
+        personRepository.findByAgeGreaterThanEqual(50)
+                .forEach(System.out::println);
+
+        System.out.println("\n9. Personnes ayant entre 20 et 30 ans (Henri, Sylvie, Bill) :");
+        personRepository.findByAgeBetween(20, 30)
+                .forEach(System.out::println);
+
+        System.out.println("\n10. Propriétaires d'animaux blancs (Paul [Médor], Sylvie [Lou]) :");
+        personRepository.findByAnimalsColor("Blanc")
+                .forEach(System.out::println);
+
+        System.out.println("\n11. Propriétaires de chats (Sylvie, John, Jean, Bill) :");
+        personRepository.findByAnimalsSpeciesCommonName("Chat")
+                .forEach(System.out::println);
     }
 }

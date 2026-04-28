@@ -2,6 +2,9 @@ package org.esaip.ira2026.arthursd.springdatajpa.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "species")
 public class Species {
@@ -13,6 +16,9 @@ public class Species {
     private String commonName;
     @Column(name = "latin_name", nullable = false, length = 64)
     private String latinName;
+
+    @OneToMany(mappedBy = "species")
+    private List<Animal> animals = new ArrayList<>();
 
     public Species() {}
 
@@ -44,6 +50,14 @@ public class Species {
 
     public void setLatinName(String latin_name) {
         this.latinName = latin_name;
+    }
+
+    public List<Animal> getAnimals() {
+        return animals;
+    }
+
+    public void setAnimals(List<Animal> animals) {
+        this.animals = animals;
     }
 
     public String toString() {
