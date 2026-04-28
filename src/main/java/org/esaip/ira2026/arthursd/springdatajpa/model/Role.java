@@ -25,4 +25,8 @@ public class Role {
 
     public String getLabel() { return label; }
     public void setLabel(String label) { this.label = label; }
+
+    public String toString() {
+        return this.getClass().getSimpleName().toUpperCase() + "> " + this.id + " | Label: " + this.label;
+    }
 }

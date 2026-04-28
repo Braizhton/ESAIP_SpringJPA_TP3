@@ -14,9 +14,7 @@ public class Species {
     @Column(name = "latin_name", nullable = false, length = 64)
     private String latinName;
 
-    public Species() {
-
-    }
+    public Species() {}
 
     public Species(Integer id, String commonName, String latinName) {
         this.id = id;
@@ -49,6 +47,6 @@ public class Species {
     }
 
     public String toString() {
-        return "Specie ID: " + this.id + "\n    Common name:" + this.commonName + "\n    Latin name:" + this.latinName;
+        return this.getClass().getSimpleName().toUpperCase() + "> " + this.id + " | Common name: " + this.commonName + " | Latin name: " + this.latinName;
     }
 }

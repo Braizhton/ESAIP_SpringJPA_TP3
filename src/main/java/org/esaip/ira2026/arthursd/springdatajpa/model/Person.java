@@ -128,6 +128,6 @@ public class Person {
     }
 
     public String toString() {
-        return "Person ID: " + this.id + "\n    Firstname:" + this.firstname + "\n    Lastname:" + this.lastname;
+        return this.getClass().getSimpleName().toUpperCase() + "> " + this.id + " | Firstname: " + this.firstname + " | Lastname: " + this.lastname;
     }
 }

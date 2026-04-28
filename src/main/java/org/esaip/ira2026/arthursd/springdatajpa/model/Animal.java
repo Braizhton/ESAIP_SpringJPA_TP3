@@ -48,6 +48,6 @@ public class Animal {
     public void setSpecies(Species species) { this.species = species; }
 
     public String toString() {
-        return "Animal ID: " + this.id + "\n    Name:" + this.name + "\n    Species:" + this.species.getCommonName();
+        return this.getClass().getSimpleName().toUpperCase() + "> " + this.id + " | Name: " + this.name + " | Species: " + this.species.getCommonName();
     }
 }
